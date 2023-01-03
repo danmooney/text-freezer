@@ -1,0 +1,27 @@
+{
+  "name": "textfreezer",
+  "version": "1.0.0.rc1",
+  "description": "Prevent text nodes in HTML document from being edited",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/danmooney/textfreezer.git"
+  },
+  "keywords": [
+    "text node persistence",
+    "mutation observer DOM freeze",
+    "inline HTML editing prevention",
+    "fraud prevention",
+    "anti-scam",
+    "scambaiting"
+  ],
+  "author": "Dan Mooney",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/danmooney/textfreezer/issues"
+  },
+  "homepage": "https://github.com/danmooney/textfreezer#readme"
+}
