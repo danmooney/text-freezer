@@ -1,12 +1,12 @@
-# TextFreezer
+# text-freezer
 
 > Prevent text nodes in HTML document from being edited
 
 ## Install
-`npm install danmooney/textfreezer`
+`npm install text-freezer`
 
 ## Usage
 ```
-import {freeze} from 'textfreezer';
-freeze(document.querySelector('elWhoseTextIWantToFreeze'));
+import {freeze} from 'text-freezer';
+freeze(document.querySelector('elWhoseTextContentIWantToFreeze'));
 ```

@@ -1,5 +1,5 @@
 {
-  "name": "textfreezer",
+  "name": "text-freezer",
   "version": "1.0.0.rc1",
   "description": "Prevent text nodes in HTML document from being edited",
   "main": "index.js",
@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/danmooney/textfreezer.git"
+    "url": "git+https://github.com/danmooney/text-freezer.git"
   },
   "keywords": [
     "text node persistence",
@@ -21,7 +21,7 @@
   "author": "Dan Mooney",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/danmooney/textfreezer/issues"
+    "url": "https://github.com/danmooney/text-freezer/issues"
   },
-  "homepage": "https://github.com/danmooney/textfreezer#readme"
+  "homepage": "https://github.com/danmooney/text-freezer#readme"
 }
