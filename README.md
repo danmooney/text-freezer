@@ -2,6 +2,8 @@
 
 > Prevent text nodes in HTML document from being edited
 
+![Textfreezer_demo](https://user-images.githubusercontent.com/960790/211227322-17dd9942-70ee-4955-aee4-b8e1bf91e3d9.gif)
+
 ## Install
 `npm install text-freezer`
 
