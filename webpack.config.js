@@ -1,5 +1,8 @@
 const path = require('path');
-module.exports = {entry: './index.js',
+const isProduction = process.env.NODE_ENV === 'production';
+
+module.exports = {
+    entry: './index.js',
     output: {
         filename: 'bundle.js',
         path: path.resolve(__dirname, 'dist'),
@@ -13,5 +16,6 @@ module.exports = {entry: './index.js',
             use: {loader: 'babel-loader', options: {presets: ['@babel/preset-env']}}
         }]
     },
-    mode: 'production'
+    mode: isProduction ? 'production' : 'development',
+    devtool: isProduction ? false : 'source-map'
 };
