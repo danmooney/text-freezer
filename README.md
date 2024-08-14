@@ -18,3 +18,4 @@ This can be useful for any page that needs to have its content protected against
 
 ## Contributing
 To run watcher, run `npx webkpack`
+To bundle, run `NODE_ENV=production npx webpack`
