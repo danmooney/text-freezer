@@ -17,5 +17,11 @@ module.exports = {
         }]
     },
     mode: isProduction ? 'production' : 'development',
-    devtool: isProduction ? false : 'source-map'
+    devtool: isProduction ? false : 'source-map',
+    watch: !isProduction, // Enable watch in non-production mode
+    watchOptions: {
+        ignored: /node_modules|[^.js]$/, // Ignore changes to non-js files and node_modules
+        aggregateTimeout: 300, // Delay the rebuild after the first change (in ms)
+        poll: 1000 // Check for changes every second (useful for network file systems)
+    }
 };
