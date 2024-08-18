@@ -1,4 +1,4 @@
-export function freeze (targetNode) {
+export function freeze(targetNode) {
     // Options for the observer (which mutations to observe)
     const config = {
         attributeOldValue: true,
@@ -10,33 +10,37 @@ export function freeze (targetNode) {
     };
 
     const textNodeOriginalValueMap = new Map();
+    const originalHTML = targetNode.innerHTML;
 
     // Callback function to execute when mutations are observed
     const callback = (mutationList, observer) => {
         for (const mutation of mutationList) {
-            if (mutation.type !== 'characterData') {
-                continue;
-            }
-
             if (mutation.target.isChangeInProgress) {
                 continue;
             }
 
-            if (!textNodeOriginalValueMap.get(mutation.target)) {
-                textNodeOriginalValueMap.set(mutation.target, mutation.oldValue === null ? mutation.target.textContent : mutation.oldValue);
-            } else if (mutation.target.textContent === textNodeOriginalValueMap.get(mutation.target)) {
-                continue;
+            if (mutation.type === 'characterData') {
+                if (!textNodeOriginalValueMap.get(mutation.target)) {
+                    textNodeOriginalValueMap.set(mutation.target, mutation.oldValue === null ? mutation.target.textContent : mutation.oldValue);
+                } else if (mutation.target.textContent === textNodeOriginalValueMap.get(mutation.target)) {
+                    continue;
+                }
+
+                if (mutation.oldValue === null) {
+                    textNodeOriginalValueMap.set(mutation.target, mutation.target.textContent);
+                    continue;
+                }
+
+                mutation.target.isChangeInProgress = true;
+
+                // revert value
+                mutation.target.textContent = textNodeOriginalValueMap.get(mutation.target);
+            } else if (mutation.type === 'childList') {
+                mutation.target.isChangeInProgress = true;
+
+                // Revert to original HTML if child nodes are added or removed
+                targetNode.innerHTML = originalHTML;
             }
-
-            if (mutation.oldValue === null) {
-                textNodeOriginalValueMap.set(mutation.target, mutation.target.textContent);
-                continue;
-            }
-
-            mutation.target.isChangeInProgress = true;
-
-            // revert value
-            mutation.target.textContent = textNodeOriginalValueMap.get(mutation.target);
 
             setTimeout(() => {
                 // reset lock
