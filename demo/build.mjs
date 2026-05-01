@@ -1,16 +1,16 @@
-// Zero-bundler build for the text-freezer demo.
+// Zero-bundler build for the scamfreezer.com landing page.
 //
 // Modes (combine flags as needed):
 //   --local        Use ../dist/bundle.js (the local library build) instead of
-//                  the npm-installed text-freezer. Required for development
+//                  the npm-installed textfreezer. Required for development
 //                  before the package is published, or when iterating on the
-//                  library and demo together.
+//                  library and site together.
 //   --no-minify    Skip HTML/CSS/JS minification — emits raw source for fast
 //                  iteration and readable DevTools output.
 //   --watch        Rebuild on source-file change.
 //
 // Default (no flags) is the production build used by CI: pulls the bundle from
-// node_modules/text-freezer (i.e. the npm registry version pinned in
+// node_modules/textfreezer (i.e. the npm registry version pinned in
 // package.json) and minifies everything into ./public.
 
 import { readFile, writeFile, mkdir, copyFile, rm } from 'node:fs/promises';
@@ -27,7 +27,7 @@ const OUT = 'public';
 function bundleSource() {
   return useLocal
     ? '../dist/bundle.js'
-    : 'node_modules/text-freezer/dist/bundle.js';
+    : 'node_modules/textfreezer/dist/bundle.js';
 }
 
 async function copyBundle() {
@@ -35,7 +35,7 @@ async function copyBundle() {
   if (!existsSync(src)) {
     const hint = useLocal
       ? 'Run `npm run build` at the repo root to produce ../dist/bundle.js.'
-      : 'Run `npm install` in demo/ to fetch text-freezer from npm.';
+      : 'Run `npm install` in demo/ to fetch textfreezer from npm.';
     throw new Error(`Library bundle not found at ${src}. ${hint}`);
   }
   await copyFile(src, `${OUT}/bundle.js`);

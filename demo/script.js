@@ -24,11 +24,10 @@
     }
 
     // Assemble the contact email at runtime to slow naive scrapers.
-    // REPLACE the user/domain values before deploy.
     var slot = document.getElementById('email-slot');
     if (slot) {
-      var user = 'YOUR_CONTACT_EMAIL';
-      var domain = 'example.com';
+      var user = 'dan';
+      var domain = 'scamfreezer.com';
       var addr = user + '@' + domain;
       var a = document.createElement('a');
       a.href = 'mailto:' + addr;
@@ -62,6 +61,6 @@
     // navigation, also outside the observer's scope. Browser extensions that
     // inject DOM near the form (Grammarly, password managers) will have their
     // injections reverted — an accepted tradeoff for this page's threat model.
-    window.textFreezer.freeze(document.body);
+    window.textfreezer.freeze(document.body);
   });
 })();

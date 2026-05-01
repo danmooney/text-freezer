@@ -1,8 +1,8 @@
 {
-  "name": "text-freezer-demo",
+  "name": "scamfreezer-site",
   "version": "0.0.0",
   "private": true,
-  "description": "Live demo and landing page for text-freezer",
+  "description": "scamfreezer.com landing page — live demo of the textfreezer library",
   "type": "module",
   "engines": {
     "node": ">=22"
@@ -15,7 +15,7 @@
     "dev": "concurrently --kill-others --names build,serve --prefix-colors auto \"npm:watch\" \"npm:serve\""
   },
   "dependencies": {
-    "text-freezer": "^1.0.0-rc1"
+    "textfreezer": "^1.0.0"
   },
   "devDependencies": {
     "concurrently": "^9.1.0",

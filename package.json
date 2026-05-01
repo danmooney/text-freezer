@@ -1,7 +1,7 @@
 {
-  "name": "text-freezer",
-  "version": "1.0.0-rc1",
-  "description": "Prevent text nodes in HTML document from being edited",
+  "name": "textfreezer",
+  "version": "1.0.0",
+  "description": "Stop in-browser HTML edits used in refund scams. A Scamfreezer project.",
   "main": "dist/bundle.js",
   "module": "src/index.js",
   "files": [
@@ -17,15 +17,17 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/danmooney/text-freezer.git"
+    "url": "git+https://github.com/scamfreezer/textfreezer.git"
   },
   "keywords": [
-    "text node persistence",
+    "scamfreezer",
+    "anti-scam",
+    "refund scam",
+    "scambaiting",
+    "fraud prevention",
     "mutation observer DOM freeze",
     "inline HTML editing prevention",
-    "fraud prevention",
-    "anti-scam",
-    "scambaiting"
+    "text node persistence"
   ],
   "author": "Dan Mooney",
   "license": "MIT",
@@ -33,9 +35,9 @@
     "node": ">=22"
   },
   "bugs": {
-    "url": "https://github.com/danmooney/text-freezer/issues"
+    "url": "https://github.com/scamfreezer/textfreezer/issues"
   },
-  "homepage": "https://github.com/danmooney/text-freezer#readme",
+  "homepage": "https://scamfreezer.com",
   "devDependencies": {
     "@babel/core": "^7.25.2",
     "@babel/preset-env": "^7.25.3",

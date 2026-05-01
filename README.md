@@ -1,30 +1,30 @@
-# text-freezer
+# textfreezer
 
-> Prevent text nodes in an HTML document from being edited.
+> Stop in-browser HTML edits used in refund scams. A [Scamfreezer](https://scamfreezer.com) project.
 
-![Textfreezer_demo](https://user-images.githubusercontent.com/960790/211227322-17dd9942-70ee-4955-aee4-b8e1bf91e3d9.gif)
+![textfreezer_demo](https://user-images.githubusercontent.com/960790/211227322-17dd9942-70ee-4955-aee4-b8e1bf91e3d9.gif)
 
 A tiny library (~60 lines) that installs a `MutationObserver` on a target element and reverts any in-browser edits to its text content or DOM structure. Built to close the *"the scammer then edits the HTML…"* step that shows up in nearly every refund-scam takedown video.
 
-A live demo is at [danmooney.github.io/text-freezer](https://danmooney.github.io/text-freezer/) (after the first deploy).
+Live demo: [scamfreezer.com](https://scamfreezer.com).
 
 ## Install
 
 ```sh
-npm install text-freezer
+npm install textfreezer
 ```
 
 Or load the UMD bundle directly:
 
 ```html
-<script src="https://unpkg.com/text-freezer/dist/bundle.js"></script>
-<script>window.textFreezer.freeze(document.querySelector('#protected'));</script>
+<script src="https://unpkg.com/textfreezer/dist/bundle.js"></script>
+<script>window.textfreezer.freeze(document.querySelector('#protected'));</script>
 ```
 
 ## Usage
 
 ```js
-import { freeze } from 'text-freezer';
+import { freeze } from 'textfreezer';
 freeze(document.querySelector('#elementToFreeze'));
 ```
 
@@ -38,10 +38,10 @@ This repo contains **two independent regions** with **two independent CI pipelin
 
 | Region | Where | Ships via |
 |---|---|---|
-| **Library** | `src/` → `dist/` (webpack UMD bundle) | `npm publish` — workflow: `.github/workflows/publish.yml` (triggers on `v*` tag push or manual dispatch) |
-| **Demo site** | `demo/` → `demo/public/` (zero-bundler, minified static files) | GitHub Pages via `gh-pages` branch — workflow: `.github/workflows/deploy.yml` (triggers on `demo/**` changes) |
+| **Library** (`textfreezer`) | `src/` → `dist/` (webpack UMD bundle) | `npm publish` — workflow: `.github/workflows/publish.yml` (triggers on `v*` tag push or manual dispatch) |
+| **Site** (scamfreezer.com) | `demo/` → `demo/public/` (zero-bundler, minified static files) | GitHub Pages via `gh-pages` branch — workflow: `.github/workflows/deploy.yml` (triggers on `demo/**` changes) |
 
-The demo consumes `text-freezer` as a normal **npm dependency** (caret-pinned in `demo/package.json`). The two domains never reach across each other in production — pushing a new library version doesn't redeploy the demo, and pushing a demo change doesn't republish the library.
+The site consumes `textfreezer` as a normal **npm dependency** (caret-pinned in `demo/package.json`). The two domains never reach across each other in production — pushing a new library version doesn't redeploy the site, and pushing a site change doesn't republish the library.
 
 ## Develop the library
 
@@ -53,9 +53,9 @@ npm run build:dev     # watch mode (re-bundles on change)
 
 `npm run build` is what `publish.yml` runs (and what `prepublishOnly` enforces locally).
 
-## Develop the demo
+## Develop the site
 
-First time only — make sure the library bundle exists, install demo deps:
+First time only — make sure the library bundle exists, install site deps:
 
 ```sh
 npm install && npm run build      # at the repo root: produces dist/bundle.js
@@ -63,7 +63,7 @@ cd demo
 npm install
 ```
 
-Then to run the live-reloading demo:
+Then to run the live-reloading site:
 
 ```sh
 npm run dev                       # watches demo/, serves demo/public/, reloads on save
@@ -79,7 +79,7 @@ For a one-shot production build identical to what CI emits:
 
 ```sh
 cd demo
-npm run build                     # minified, sources text-freezer from node_modules (i.e. npm)
+npm run build                     # minified, sources textfreezer from node_modules (i.e. npm)
 ```
 
 The `build.mjs` script accepts `--local` (use `../dist/bundle.js`), `--no-minify` (raw output), and `--watch` flags.
@@ -90,11 +90,11 @@ The `build.mjs` script accepts `--local` (use `../dist/bundle.js`), `--no-minify
 2. `git tag v1.2.3 && git push --tags`
 3. `publish.yml` runs `npm install`, `npm run build`, then `npm publish` using the `NPM_TOKEN` repository secret.
 
-The demo redeploys **only** when files under `demo/**` change. To roll the demo onto a newly-published library version, bump the caret range in `demo/package.json` (or just push a no-op change) and let `deploy.yml` rebuild against the latest npm registry.
+The site redeploys **only** when files under `demo/**` change. To roll the site onto a newly-published library version, bump the caret range in `demo/package.json` (or just push a no-op change) and let `deploy.yml` rebuild against the latest npm registry.
 
 ## Contributing
 
-Issues and PRs welcome at <https://github.com/danmooney/text-freezer>.
+Issues and PRs welcome at <https://github.com/scamfreezer/textfreezer>.
 
 ## License
 
