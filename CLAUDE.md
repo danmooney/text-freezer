@@ -51,8 +51,8 @@ The `MutationObserver` instance is a local inside `freeze()`, never returned, ne
 
 ## Demo conventions
 
-- **`data-frozen-zone` attribute** — `demo/script.js` finds every element marked with this attribute and calls `freeze()` on it. The contact form is intentionally NOT marked, so it remains the only editable region. When adding new content sections to `demo/index.html`, add `data-frozen-zone` to top-level sections you want frozen.
-- **All DOM setup must happen before `freeze()` runs.** `script.js` does its setup synchronously inside `DOMContentLoaded`, then calls `freeze()` last. Any DOM mutation made AFTER freeze (programmatic text changes, `appendChild`, etc.) inside a frozen zone gets reverted. If you need a section to be dynamic, leave it outside `[data-frozen-zone]`.
+- **Whole-body freeze.** `demo/script.js` calls `freeze(document.body)` — the entire page is one frozen root. This is deliberate: section-level freezing is vulnerable to a deletion attack, because a section's own observer can't see itself being detached from its parent. The contact form lives inside the frozen body too, and that's fine — typing into `<input>` / `<textarea>` updates `element.value` (a property), not text nodes, so no characterData/childList mutation fires. Submit is a normal browser navigation, also outside the observer. Browser extensions that inject DOM near the form (Grammarly, password managers) will have their injections reverted; accepted tradeoff.
+- **All DOM setup must happen before `freeze()` runs.** `script.js` does its setup synchronously inside `DOMContentLoaded`, then calls `freeze()` last. Any DOM mutation made AFTER freeze gets reverted. The page is intentionally fully static after load. If something genuinely needs to be dynamic, it has to live in form-input land (where typing doesn't mutate the DOM), not in text nodes.
 - **Pre-deploy placeholders** — the demo ships with two intentional placeholders that must be replaced before any real deploy:
   1. `demo/script.js` — `YOUR_CONTACT_EMAIL` / `example.com` in the email-assembly block.
   2. `demo/index.html` — `https://formspree.io/f/REPLACE_WITH_FORM_ID` on the contact form's `action`.

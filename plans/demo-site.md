@@ -13,7 +13,7 @@ This is a **stall** in the fight, not a panacea. Tone is pragmatic confidence �
 | Decision | Choice | Rationale |
 |---|---|---|
 | Bank scenario | Yes — fictional **Meridian Federal**, single panel below the fold | Mirrors the canonical refund-scam frame without trademark risk |
-| Eureka mechanic | Self-demoing entire page (every `data-frozen-zone` section frozen on load) | Demo speaks for itself — no guided walkthrough |
+| Eureka mechanic | Self-demoing entire page — `freeze(document.body)` runs once on load | Demo speaks for itself — no guided walkthrough. Whole-body freeze (vs. per-section) closes a deletion attack: a section-level observer can't see its own detachment from the parent, so an attacker could delete the section element and bypass the freeze. Body-level catches all childList mutations underneath, including section deletion. Form inputs stay editable because typing updates `.value`, not text nodes — no observer mutations fire. |
 | Aesthetic | Hybrid: editorial hero (Fraunces + Newsreader, paper-cream + ink) + hostile-fintech bank panel (cardinal red, IBM Plex, gold hairlines) | Two registers in one page; bank panel needs realism for editing it to feel meaningful, hero needs voice |
 | Headline | "Every second wasted on a scammer is a potential victim saved." | User-supplied; reframes the imperfection objection before it's raised |
 | Sidebar/footer creator shoutout | **Cut** — would feel like fishing for endorsements; piggybacks on creators without permission | Keep the recipient list private in the outreach spreadsheet |

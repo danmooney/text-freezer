@@ -49,11 +49,19 @@
       });
     }
 
-    // Freeze every marked zone. The contact form is intentionally NOT marked,
-    // so it remains the only editable region on the page.
-    if (window.textFreezer && typeof window.textFreezer.freeze === 'function') {
-      var zones = document.querySelectorAll('[data-frozen-zone]');
-      zones.forEach(function (z) { window.textFreezer.freeze(z); });
-    }
+    // Freeze the whole document body as a single root. Section-level freezes
+    // leave a deletion attack open: a scammer could remove a section element
+    // from its parent, and a section-scoped observer can't see its own
+    // detachment. Freezing body means *every* childList mutation under body —
+    // including section deletion — is reverted.
+    //
+    // The contact form continues to work because typing into <input> or
+    // <textarea> updates the element's `value` property, not its child text
+    // nodes. No characterData or childList mutation fires, so the observer
+    // never sees keystrokes. Submit posts to Formspree as a normal browser
+    // navigation, also outside the observer's scope. Browser extensions that
+    // inject DOM near the form (Grammarly, password managers) will have their
+    // injections reverted — an accepted tradeoff for this page's threat model.
+    window.textFreezer.freeze(document.body);
   });
 })();
