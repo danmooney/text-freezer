@@ -6,12 +6,12 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 This repo houses a **single-product company structure**:
 
-- **Scamfreezer** — the umbrella brand and domain (scamfreezer.com). The marketing-facing identity. The `demo/` directory IS the scamfreezer.com landing page.
-- **textfreezer** — the library. The first (currently only) Scamfreezer product. Published on npm as `textfreezer`.
+- **Scamfreezer** — the umbrella brand and domain (scamfreezer.com). The marketing-facing identity. The `demo/` directory IS the scamfreezer.com landing page. Also the npm scope.
+- **textfreezer** — the library, the everyday name in prose. The first (currently only) Scamfreezer product. Published on npm as the **scoped** package `@scamfreezer/textfreezer`.
 
-Bridge line on the page: *"textfreezer is a Scamfreezer project."* Most copy on the public site refers to "Scamfreezer"; library/install snippets refer to `textfreezer`. Don't conflate them — Scamfreezer is the company-shaped umbrella, `textfreezer` is the npm-shaped product.
+Bridge line on the page: *"textfreezer is a Scamfreezer project."* Most copy on the public site refers to "Scamfreezer" or "textfreezer" (no scope); install snippets and `package.json` refer to `@scamfreezer/textfreezer`. Don't conflate them — Scamfreezer is the company-shaped umbrella, `textfreezer` is the everyday name, `@scamfreezer/textfreezer` is the canonical npm identifier.
 
-The library was previously named `text-freezer` (hyphenated). The hyphenated name still exists on npm at `1.0.0-rc1` from before the rename and should be deprecated by Dan with a pointer to `textfreezer`.
+The library was previously named `text-freezer` (hyphenated, unscoped). The hyphenated name still exists on npm at `1.0.0-rc1` from before the rename and should be deprecated with a pointer to `@scamfreezer/textfreezer`.
 
 ## Two domains, one repo
 
@@ -19,10 +19,10 @@ This repo has **two independent regions** with **independent pipelines** — kee
 
 | Region | Source | Build | Output | Ships via |
 |---|---|---|---|---|
-| Library (`textfreezer`) | `src/` | root `package.json` + `webpack.config.js` | `dist/` | `npm publish` (workflow: `.github/workflows/publish.yml`, triggers on `v*` tag push) |
+| Library (`@scamfreezer/textfreezer`) | `src/` | root `package.json` + `webpack.config.js` | `dist/` | `npm publish` (workflow: `.github/workflows/publish.yml`, triggers on `v*` tag push) |
 | Site (scamfreezer.com) | `demo/` | `demo/package.json` + `demo/build.mjs` | `demo/public/` (gitignored) | GitHub Pages via `gh-pages` branch with CNAME `scamfreezer.com` (workflow: `.github/workflows/deploy.yml`, triggers on `demo/**` changes) |
 
-The site consumes `textfreezer` as a normal **npm dependency** (pinned in `demo/package.json`). It does NOT reach into `../dist/` directly — that's the firewall between the two domains. The only exception is local dev mode (see below).
+The site consumes `@scamfreezer/textfreezer` as a normal **npm dependency** (pinned in `demo/package.json`). It does NOT reach into `../dist/` directly — that's the firewall between the two domains. The only exception is local dev mode (see below).
 
 **Don't put website source or build output in `docs/`.** `docs/` is reserved for documentation if it ever exists.
 
@@ -37,13 +37,13 @@ The site consumes `textfreezer` as a normal **npm dependency** (pinned in `demo/
 ### Site (`cd demo`)
 - Local dev: `npm run dev` — starts a watcher + static server, builds **unminified** from **local** `../dist/bundle.js` (skips the npm-installed copy). Requires `npm run build` at the repo root first to populate `../dist/`.
 - One-shot dev build: `npm run build:dev`
-- Production build: `npm run build` — minifies HTML/CSS/JS and copies the **npm-installed** `textfreezer/dist/bundle.js` (i.e. the published version). This is what CI runs.
+- Production build: `npm run build` — minifies HTML/CSS/JS and copies the **npm-installed** `@scamfreezer/textfreezer/dist/bundle.js` (i.e. the published version). This is what CI runs.
 
-The dual modes are controlled by `--local` / `--no-minify` flags on `build.mjs`. The dev mode never touches `node_modules/textfreezer`, so local dev works even before `textfreezer` is published.
+The dual modes are controlled by `--local` / `--no-minify` flags on `build.mjs`. The dev mode never touches `node_modules/@scamfreezer/textfreezer`, so local dev works even before the package is published.
 
 ## Library build output
 
-Webpack bundles `src/index.js` to `dist/bundle.js` as a UMD library exposing `window.textfreezer` (with `.freeze`). Consumers can `import { freeze } from 'textfreezer'` (resolves via `main: "dist/bundle.js"`) or load it as a `<script>` tag.
+Webpack bundles `src/index.js` to `dist/bundle.js` as a UMD library exposing `window.textfreezer` (with `.freeze`). Consumers can `import { freeze } from '@scamfreezer/textfreezer'` (resolves via `main: "dist/bundle.js"`) or load it as a `<script>` tag (the global stays the un-scoped identifier `textfreezer` since `@`/`/` aren't valid in JS identifiers).
 
 ## Architecture
 
@@ -73,11 +73,11 @@ Several manual steps must happen before scamfreezer.com goes live. Local dev (`n
 1. **Create `scamfreezer` GitHub org** and transfer this repo into it (renaming if needed; the local directory is already `textfreezer/` but the GitHub repo is currently `danmooney/text-freezer`).
 2. **DNS for `scamfreezer.com`** — A records to `185.199.108.153`, `.109.153`, `.110.153`, `.111.153`; CNAME for `www` → `scamfreezer.github.io`.
 3. **Pages settings** in the GitHub repo: Source = `gh-pages` branch.
-4. **Publish `textfreezer@1.0.0` to npm.** The package is renamed from `text-freezer` (which sits at `1.0.0-rc1`); first publish under the new name goes via tag push (`git tag v1.0.0 && git push --tags`) → `publish.yml`.
-5. **Deprecate the old name** once `textfreezer` is up: `npm deprecate text-freezer@"<99.0" "Renamed to textfreezer; install textfreezer instead"`.
+4. **Publish `@scamfreezer/textfreezer@1.0.0` to npm.** First publish under the new scoped name goes via tag push (`git tag v1.0.0 && git push --tags`) → `publish.yml`. The token in `NPM_TOKEN` must have publish rights on the `@scamfreezer` npm org (granular access tokens may need explicit `@scamfreezer` scope grant in npmjs.com settings).
+5. **Deprecate the old name** once the new package is up: `npm deprecate text-freezer@"<99.0" "Renamed to @scamfreezer/textfreezer"`.
 6. **Replace the Formspree placeholder** in `demo/index.html` (`https://formspree.io/f/REPLACE_WITH_FORM_ID` → real form ID) before the deploy is useful.
 
-If a session is diagnosing a deploy failure due to `npm install` not finding `textfreezer`, the fix is "step 4 hasn't happened yet," not a workaround in `build.mjs`.
+If a session is diagnosing a deploy failure due to `npm install` not finding `@scamfreezer/textfreezer`, the fix is "step 4 hasn't happened yet," not a workaround in `build.mjs`.
 
 ## Repo layout notes
 

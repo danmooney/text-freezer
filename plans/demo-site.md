@@ -4,10 +4,11 @@ Snapshot of the design + structural decisions behind the `demo/` directory (whic
 
 ## Brand structure
 
-- **Scamfreezer** — umbrella brand (scamfreezer.com domain, GitHub org). The marketing-facing identity used on the site itself, in cold outreach DMs, and in any future product additions.
-- **textfreezer** — the npm-published library. The first Scamfreezer product. Named after its mechanism (freezing text); used in install/code snippets only.
+- **Scamfreezer** — umbrella brand (scamfreezer.com domain, GitHub org `scamfreezer`, npm org `@scamfreezer`). The marketing-facing identity used on the site itself, in cold outreach DMs, and in any future product additions.
+- **textfreezer** — the everyday/prose name of the library. The first Scamfreezer product. Named after its mechanism (freezing text).
+- **`@scamfreezer/textfreezer`** — the canonical npm identifier. Used in install snippets and `package.json`. Scoped from the start so future products (`@scamfreezer/linkfreezer`, `@scamfreezer/voicefreezer`, etc.) sit naturally alongside.
 - Bridge: site footer reads *"textfreezer is a Scamfreezer project."*
-- Old name `text-freezer` (hyphenated) sits at `1.0.0-rc1` on npm and gets deprecated in favor of `textfreezer`.
+- Old name `text-freezer` (hyphenated, unscoped) sits at `1.0.0-rc1` on npm and gets deprecated in favor of `@scamfreezer/textfreezer`.
 
 The split is deliberate: outcome-named brand (Scamfreezer) does the cold-outreach work; mechanism-named library (textfreezer) lives where developers operate. Cold-outreach visitors only see "Scamfreezer"; the library name surfaces only for developers.
 
@@ -34,7 +35,7 @@ This is a **stall** in the fight, not a panacea. Tone is pragmatic confidence �
 | Contact form | Static, **honeypot field** (`name="website"`) + **JS-rendered email** + Formspree submit | Cleaner than Turnstile for expected volume; swap to Turnstile later if spam appears |
 | Hosting | GitHub Pages from `gh-pages` branch with CNAME `scamfreezer.com` | Mirrors dict2json pattern |
 | Domain split (CI) | Library publish and site deploy are **two completely independent pipelines** | User explicit requirement |
-| Site dependency | `textfreezer` from **npm** (caret pin in `demo/package.json`) — never reaches into `../dist/` in prod | Prod build is exactly what an external consumer would experience |
+| Site dependency | `@scamfreezer/textfreezer` from **npm** (caret pin in `demo/package.json`) — never reaches into `../dist/` in prod | Prod build is exactly what an external consumer would experience |
 | Local dev exception | `--local` flag on `build.mjs` reads `../dist/bundle.js` directly | Avoids needing a republish for every iteration |
 | Build tool | **Zero bundler.** Node script + three minifiers (terser, lightningcss, html-minifier-terser) | User picked zero-build but wanted minification |
 
@@ -46,14 +47,14 @@ textfreezer/                  ← local dir; GitHub repo will be scamfreezer/tex
 │   └── index.js              (the freeze() function)
 ├── dist/                     ← LIBRARY build output (regenerated at publish time)
 ├── webpack.config.js
-├── package.json              ← LIBRARY (published as `textfreezer` on npm)
+├── package.json              ← LIBRARY (published as `@scamfreezer/textfreezer` on npm)
 │
 ├── demo/                     ← SITE source (scamfreezer.com)
 │   ├── index.html
 │   ├── styles.css
 │   ├── script.js
 │   ├── build.mjs             (assembly + minification)
-│   ├── package.json          ← SITE (private, depends on `textfreezer` from npm)
+│   ├── package.json          ← SITE (private, depends on `@scamfreezer/textfreezer` from npm)
 │   └── public/               ← SITE build output (gitignored)
 │
 ├── .github/workflows/
@@ -71,8 +72,8 @@ textfreezer/                  ← local dir; GitHub repo will be scamfreezer/tex
 1. **Create `scamfreezer` GitHub org** and transfer the repo into it (renaming to `textfreezer` if needed).
 2. **DNS:** point `scamfreezer.com` at GitHub Pages (A records `185.199.108-111.153`; CNAME for `www` → `scamfreezer.github.io`).
 3. **Pages settings:** Source = `gh-pages` branch.
-4. **Publish `textfreezer@1.0.0`** to npm via `git tag v1.0.0 && git push --tags` → `publish.yml`.
-5. **Deprecate the old name:** `npm deprecate text-freezer@"<99.0" "Renamed to textfreezer; install textfreezer instead"`.
+4. **Publish `@scamfreezer/textfreezer@1.0.0`** to npm via `git tag v1.0.0 && git push --tags` → `publish.yml`. Confirm `NPM_TOKEN` has publish rights on the `@scamfreezer` scope (granular tokens may need explicit scope grant in npmjs.com settings).
+5. **Deprecate the old name:** `npm deprecate text-freezer@"<99.0" "Renamed to @scamfreezer/textfreezer"`.
 6. **Replace the Formspree placeholder** in `demo/index.html` (`https://formspree.io/f/REPLACE_WITH_FORM_ID` → real form ID) before relying on the contact form.
 7. Optionally swap the honeypot for **Cloudflare Turnstile** if/when spam materializes — ~10 lines.
 

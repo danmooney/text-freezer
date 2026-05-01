@@ -1,7 +1,10 @@
 {
-  "name": "textfreezer",
+  "name": "@scamfreezer/textfreezer",
   "version": "1.0.0",
   "description": "Stop in-browser HTML edits used in refund scams. A Scamfreezer project.",
+  "publishConfig": {
+    "access": "public"
+  },
   "main": "dist/bundle.js",
   "module": "src/index.js",
   "files": [

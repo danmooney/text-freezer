@@ -11,20 +11,20 @@ Live demo: [scamfreezer.com](https://scamfreezer.com).
 ## Install
 
 ```sh
-npm install textfreezer
+npm install @scamfreezer/textfreezer
 ```
 
 Or load the UMD bundle directly:
 
 ```html
-<script src="https://unpkg.com/textfreezer/dist/bundle.js"></script>
+<script src="https://unpkg.com/@scamfreezer/textfreezer/dist/bundle.js"></script>
 <script>window.textfreezer.freeze(document.querySelector('#protected'));</script>
 ```
 
 ## Usage
 
 ```js
-import { freeze } from 'textfreezer';
+import { freeze } from '@scamfreezer/textfreezer';
 freeze(document.querySelector('#elementToFreeze'));
 ```
 
@@ -38,10 +38,10 @@ This repo contains **two independent regions** with **two independent CI pipelin
 
 | Region | Where | Ships via |
 |---|---|---|
-| **Library** (`textfreezer`) | `src/` → `dist/` (webpack UMD bundle) | `npm publish` — workflow: `.github/workflows/publish.yml` (triggers on `v*` tag push or manual dispatch) |
+| **Library** (`@scamfreezer/textfreezer`) | `src/` → `dist/` (webpack UMD bundle) | `npm publish` — workflow: `.github/workflows/publish.yml` (triggers on `v*` tag push or manual dispatch) |
 | **Site** (scamfreezer.com) | `demo/` → `demo/public/` (zero-bundler, minified static files) | GitHub Pages via `gh-pages` branch — workflow: `.github/workflows/deploy.yml` (triggers on `demo/**` changes) |
 
-The site consumes `textfreezer` as a normal **npm dependency** (caret-pinned in `demo/package.json`). The two domains never reach across each other in production — pushing a new library version doesn't redeploy the site, and pushing a site change doesn't republish the library.
+The site consumes `@scamfreezer/textfreezer` as a normal **npm dependency** (caret-pinned in `demo/package.json`). The two domains never reach across each other in production — pushing a new library version doesn't redeploy the site, and pushing a site change doesn't republish the library.
 
 ## Develop the library
 
@@ -79,7 +79,7 @@ For a one-shot production build identical to what CI emits:
 
 ```sh
 cd demo
-npm run build                     # minified, sources textfreezer from node_modules (i.e. npm)
+npm run build                     # minified, sources @scamfreezer/textfreezer from node_modules (i.e. npm)
 ```
 
 The `build.mjs` script accepts `--local` (use `../dist/bundle.js`), `--no-minify` (raw output), and `--watch` flags.
