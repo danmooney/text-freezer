@@ -434,7 +434,9 @@ main, header.topbar, footer.footer { position: relative; z-index: 1; }
       "what amount"
       "when when";
     gap: 0.3rem 1rem;
-    padding: 0.85rem 0;
+    /* longhand to avoid clobbering .ledger__row--flag's padding-left */
+    padding-top: 0.85rem;
+    padding-bottom: 0.85rem;
   }
   .ledger__when   { grid-area: when; font-size: 0.74rem; }
   .ledger__what   { grid-area: what; }
