@@ -1,0 +1,26 @@
+{
+  "name": "text-freezer-demo",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Live demo and landing page for text-freezer",
+  "type": "module",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "build": "node build.mjs",
+    "build:dev": "node build.mjs --local --no-minify",
+    "watch": "node build.mjs --local --no-minify --watch",
+    "serve": "npx --yes serve@latest public",
+    "dev": "concurrently --kill-others --names build,serve --prefix-colors auto \"npm:watch\" \"npm:serve\""
+  },
+  "dependencies": {
+    "text-freezer": "^1.0.0-rc1"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.0",
+    "html-minifier-terser": "^7.2.0",
+    "lightningcss": "^1.28.0",
+    "terser": "^5.36.0"
+  }
+}
