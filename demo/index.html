@@ -213,7 +213,7 @@
       Direct email: <span id="email-slot">[email available with JavaScript on]</span>
     </p>
 
-    <form class="contact__form" action="https://formsubmit.co/dan@scamfreezer.com" method="POST">
+    <form class="contact__form" action="https://formsubmit.co/ajax/a8af754dace65d444dfb7b767a1f2052" method="POST">
       <input type="hidden" name="_subject" value="scamfreezer.com — new contact">
       <input type="hidden" name="_template" value="table">
       <input type="hidden" name="_captcha" value="false">
@@ -234,12 +234,20 @@
         Leave this field empty
         <input type="text" name="website" tabindex="-1" autocomplete="off">
       </label>
+      <div class="contact__feedback contact__feedback--error" hidden>
+        Something went wrong. Try again, or reach out via the email above.
+      </div>
       <div class="contact__submit">
         <button class="btn btn--primary" type="submit">
           Send <span class="btn__arrow" aria-hidden="true">&rarr;</span>
         </button>
       </div>
     </form>
+
+    <div class="contact__success" hidden>
+      <p class="contact__success-title">Message received.</p>
+      <p>You&rsquo;ll hear back.</p>
+    </div>
   </section>
 
 </main>
