@@ -11,7 +11,7 @@
     "build": "node build.mjs",
     "build:dev": "node build.mjs --local --no-minify",
     "watch": "node build.mjs --local --no-minify --watch",
-    "serve": "npx --yes serve@latest public",
+    "serve": "npx --yes http-server@latest public -p 3000 -c-1",
     "dev": "concurrently --kill-others --names build,serve --prefix-colors auto \"npm:watch\" \"npm:serve\""
   },
   "dependencies": {

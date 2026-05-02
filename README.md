@@ -69,7 +69,7 @@ Then to run the live-reloading site:
 npm run dev                       # watches demo/, serves demo/public/, reloads on save
 ```
 
-Open **http://localhost:????**.
+Open **http://localhost:3000**.
 
 `npm run dev` builds in `--local --no-minify` mode: it pulls the bundle from `../dist/bundle.js` (i.e. *your* working library, not npm), skips minification for readable DevTools, and rebuilds + reloads on every save.
 
