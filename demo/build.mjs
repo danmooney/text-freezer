@@ -75,10 +75,14 @@ async function buildJS() {
   await writeFile(`${OUT}/script.js`, out.code);
 }
 
+async function copyFavicon() {
+  await copyFile('favicon.svg', `${OUT}/favicon.svg`);
+}
+
 async function build() {
   await rm(OUT, { recursive: true, force: true });
   await mkdir(OUT, { recursive: true });
-  await Promise.all([copyBundle(), buildHTML(), buildCSS(), buildJS()]);
+  await Promise.all([copyBundle(), buildHTML(), buildCSS(), buildJS(), copyFavicon()]);
   const tag = `${noMinify ? 'dev' : 'prod'} · ${useLocal ? 'local-lib' : 'npm-lib'}`;
   console.log(`[build] ${tag} → ${OUT}/`);
 }
