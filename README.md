@@ -2,6 +2,9 @@
 
 > Stop in-browser HTML edits used in refund scams. A [Scamfreezer](https://scamfreezer.com) project.
 
+[![npm](https://img.shields.io/npm/v/@scamfreezer/textfreezer.svg)](https://www.npmjs.com/package/@scamfreezer/textfreezer)
+[![license](https://img.shields.io/npm/l/@scamfreezer/textfreezer.svg)](./LICENSE)
+
 ![textfreezer_demo](https://user-images.githubusercontent.com/960790/211227322-17dd9942-70ee-4955-aee4-b8e1bf91e3d9.gif)
 
 A tiny library (~60 lines) that installs a `MutationObserver` on a target element and reverts any in-browser edits to its text content or DOM structure. Built to close the *"the scammer then edits the HTML…"* step that shows up in nearly every refund-scam takedown video.
@@ -9,6 +12,8 @@ A tiny library (~60 lines) that installs a `MutationObserver` on a target elemen
 Live demo: [scamfreezer.com](https://scamfreezer.com).
 
 ## Install
+
+[npm registry page →](https://www.npmjs.com/package/@scamfreezer/textfreezer)
 
 ```sh
 npm install @scamfreezer/textfreezer
