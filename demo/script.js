@@ -36,13 +36,13 @@
       slot.replaceChildren(a);
     }
 
-    // Honeypot: real users will not fill the hidden "website" field.
+    // Anti-spam: a hidden field humans don't see — if it has a value,
+    // a bot filled it; abort before the network request fires.
     var form = document.querySelector('.contact__form');
     if (form) {
       form.addEventListener('submit', function (e) {
         var trap = form.querySelector('input[name="website"]');
         if (trap && trap.value) {
-          // Silently drop. Don't tell the bot why.
           e.preventDefault();
         }
       });
