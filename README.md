@@ -14,11 +14,10 @@ Live demo: [scamfreezer.com](https://scamfreezer.com).
 npm install @scamfreezer/textfreezer
 ```
 
-Or load the UMD bundle directly:
+Or load the UMD bundle directly from a CDN:
 
 ```html
 <script src="https://unpkg.com/@scamfreezer/textfreezer/dist/bundle.js"></script>
-<script>window.textfreezer.freeze(document.querySelector('#protected'));</script>
 ```
 
 ## Usage
@@ -26,6 +25,12 @@ Or load the UMD bundle directly:
 ```js
 import { freeze } from '@scamfreezer/textfreezer';
 freeze(document.querySelector('#elementToFreeze'));
+```
+
+Or via the UMD global (after the `<script>` tag above):
+
+```html
+<script>window.textfreezer.freeze(document.querySelector('#protected'));</script>
 ```
 
 After the call, any attempt to edit the element's text content (typing in DevTools, scripted `textContent` changes, child node insertions/removals) is immediately reverted. The observer is captured in the function's closure — there is no exposed handle to switch it off after the fact.
