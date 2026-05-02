@@ -683,6 +683,38 @@ main, header.topbar, footer.footer { position: relative; z-index: 1; }
 
 .contact__submit { grid-column: 1 / -1; }
 
+.contact__feedback {
+  grid-column: 1 / -1;
+}
+.contact__feedback--error {
+  font-family: var(--mono);
+  font-size: 0.88rem;
+  color: var(--cardinal-d);
+  background: rgba(139, 26, 26, 0.06);
+  border-left: 2px solid var(--cardinal);
+  padding: 0.75rem 1rem;
+}
+
+.contact__success {
+  border-top: 1px solid rgba(26, 23, 20, 0.18);
+  border-bottom: 1px solid rgba(26, 23, 20, 0.18);
+  padding: 2rem 0;
+  font-family: var(--serif);
+  font-size: 1.1rem;
+  color: var(--ink-soft);
+}
+.contact__success-title {
+  font-family: var(--display);
+  font-variation-settings: "opsz" 36;
+  font-weight: 500;
+  font-size: clamp(1.4rem, 2.4vw, 1.9rem);
+  color: var(--ink);
+  margin-bottom: 0.4rem;
+}
+
+/* Ensure attribute-driven hide works regardless of competing display rules. */
+[hidden] { display: none !important; }
+
 @media (max-width: 600px) {
   .contact__form { grid-template-columns: 1fr; }
 }

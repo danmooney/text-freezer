@@ -36,15 +36,46 @@
       slot.replaceChildren(a);
     }
 
-    // Anti-spam: a hidden field humans don't see — if it has a value,
-    // a bot filled it; abort before the network request fires.
+    // Contact form: AJAX submit to Formsubmit so the visitor stays on
+    // scamfreezer.com instead of bouncing to formsubmit.co's thank-you page.
+    // Success/error states are pre-rendered with `hidden` and toggled via
+    // attribute changes — which the freeze observer ignores (it only reverts
+    // characterData and childList mutations), so the page stays frozen but
+    // the form state still updates after submit.
     var form = document.querySelector('.contact__form');
     if (form) {
+      var successEl = document.querySelector('.contact__success');
+      var errorEl = form.querySelector('.contact__feedback--error');
+      var submitBtn = form.querySelector('button[type="submit"]');
+
       form.addEventListener('submit', function (e) {
+        e.preventDefault();
+
+        // Anti-spam: a hidden field humans don't see — if it has a value,
+        // a bot filled it; drop silently.
         var trap = form.querySelector('input[name="website"]');
-        if (trap && trap.value) {
-          e.preventDefault();
-        }
+        if (trap && trap.value) return;
+
+        if (errorEl) errorEl.setAttribute('hidden', '');
+        if (submitBtn) submitBtn.disabled = true;
+
+        fetch(form.action, {
+          method: 'POST',
+          headers: { Accept: 'application/json' },
+          body: new FormData(form),
+        })
+          .then(function (response) {
+            if (!response.ok) throw new Error('non-2xx');
+            return response.json();
+          })
+          .then(function () {
+            form.setAttribute('hidden', '');
+            if (successEl) successEl.removeAttribute('hidden');
+          })
+          .catch(function () {
+            if (errorEl) errorEl.removeAttribute('hidden');
+            if (submitBtn) submitBtn.disabled = false;
+          });
       });
     }
 
