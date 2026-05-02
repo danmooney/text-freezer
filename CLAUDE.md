@@ -82,6 +82,5 @@ If a session is diagnosing a deploy failure due to `npm install` not finding `@s
 ## Repo layout notes
 
 - `demo/` — scamfreezer.com landing page / live demonstration. See "Two domains" above. (Keeping the directory name `demo/` rather than `site/` because that's the role for ad-hoc development; the published artifact is the site.)
-- `starting_files/bank.html` + `bank.css` — original manual demo fixture, predates `demo/`. Kept for reference; not part of the published package and not what CI deploys.
 - `plans/` — ad-hoc planning docs. `plans/demo-site.md` captures the locked design and structural decisions behind `demo/`; read it before second-guessing layout/aesthetic choices.
 - License is **MIT** (see `LICENSE`). The repo briefly went Proprietary in commit `357de33` and was reverted; the new `textfreezer` package publishes under MIT.
