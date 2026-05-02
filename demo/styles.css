@@ -414,17 +414,6 @@ main, header.topbar, footer.footer { position: relative; z-index: 1; }
 .dashboard__hint strong { color: var(--cardinal); }
 .dashboard__hint em { font-style: italic; color: var(--ink); }
 
-.dashboard__legal {
-  margin-top: 1.6rem;
-  padding-top: 1rem;
-  border-top: 1px solid rgba(26,23,20,0.10);
-  font-family: var(--sans);
-  font-size: 0.78rem;
-  color: var(--ash);
-  position: relative; z-index: 1;
-}
-.dashboard__legal strong { color: var(--ink-soft); font-weight: 600; }
-
 @media (max-width: 720px) {
   .dashboard__chrome { flex-direction: column; align-items: flex-start; gap: 0.8rem; padding: 0.9rem 1rem; }
   .dashboard__nav { display: none; }
