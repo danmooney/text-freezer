@@ -76,7 +76,14 @@ async function buildJS() {
 }
 
 async function copyFavicon() {
-  await copyFile('favicon.svg', `${OUT}/favicon.svg`);
+  const files = [
+    'favicon.ico',
+    'favicon.svg',
+    'favicon-32x32.png',
+    'favicon-192x192.png',
+    'apple-touch-icon.png',
+  ];
+  await Promise.all(files.map((f) => copyFile(f, `${OUT}/${f}`)));
 }
 
 async function build() {
