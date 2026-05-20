@@ -115,7 +115,7 @@ main, header.topbar, footer.footer { position: relative; z-index: 1; }
 /* ---------- Hero ---------- */
 
 .hero {
-  max-width: 78ch;
+  max-width: 86ch;
   padding: clamp(3rem, 9vw, 7rem) 1.4rem clamp(2rem, 6vw, 4rem);
   margin: 0 auto;
 }
@@ -132,12 +132,12 @@ main, header.topbar, footer.footer { position: relative; z-index: 1; }
 }
 
 .hero__headline {
-  font-family: var(--display);
-  font-variation-settings: "opsz" 144;
-  font-weight: 500;
-  font-size: clamp(2.4rem, 6.4vw, 5.4rem);
-  line-height: 1.02;
-  letter-spacing: -0.025em;
+  font-family: var(--serif);
+  font-variation-settings: "opsz" 72;
+  font-weight: 600;
+  font-size: clamp(1.95rem, 4.9vw, 4.2rem);
+  line-height: 1.05;
+  letter-spacing: -0.03em;
   color: var(--ink);
   margin-bottom: 2rem;
   opacity: 0;
@@ -531,9 +531,9 @@ main, header.topbar, footer.footer { position: relative; z-index: 1; }
   border-bottom: 1px solid rgba(26,23,20,0.18);
 }
 .cta__title {
-  font-family: var(--display);
-  font-variation-settings: "opsz" 144;
-  font-weight: 500;
+  font-family: var(--serif);
+  font-variation-settings: "opsz" 72;
+  font-weight: 600;
   font-size: clamp(2rem, 4.6vw, 3.4rem);
   letter-spacing: -0.02em;
   margin-bottom: 1rem;
@@ -601,9 +601,9 @@ main, header.topbar, footer.footer { position: relative; z-index: 1; }
   padding: 0 1.4rem clamp(3rem, 6vw, 5rem);
 }
 .contact__title {
-  font-family: var(--display);
-  font-variation-settings: "opsz" 144;
-  font-weight: 500;
+  font-family: var(--serif);
+  font-variation-settings: "opsz" 72;
+  font-weight: 600;
   font-size: clamp(1.8rem, 3.5vw, 2.6rem);
   margin-bottom: 0.8rem;
   color: var(--ink);
